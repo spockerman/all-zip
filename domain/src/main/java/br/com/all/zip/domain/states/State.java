@@ -1,27 +1,27 @@
-package br.com.all.zip.domain;
+package br.com.all.zip.domain.states;
 
-public class States {
+public class State {
 
     private final Integer id;
     private final String name;
     private final String initials;
 
-    public States(Integer id, String name, String initials) {
+    public State(Integer id, String name, String initials) {
         this.id = id;
         this.name = name;
         this.initials = initials;
     }
 
-    public static States newStates(Integer id, String name, String initials) {
-        return new States(null, name, initials);
+    public static State newStates(Integer id, String name, String initials) {
+        return new State(null, name, initials);
     }
 
-    public static States with(
+    public static State with(
             Integer id,
             String name,
             String initials
     ){
-        return new States(id, name, initials);
+        return new State(id, name, initials);
     }
 
     public Integer getId() {
