@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mariadb:11.4
+    container_name: all42-database
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpwd
+      MARIADB_DATABASE: zipcode
+      # MARIADB_USER: app         # opcional
+      # MARIADB_PASSWORD: apppwd  # opcional
+    ports:
+      - "3308:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./initdb/01-create.sql:/docker-entrypoint-initdb.d/01-create.sql
+      - ./initdb/02-state.sql:/docker-entrypoint-initdb.d/02-state.sql
+      - ./initdb/03-cities.sql:/docker-entrypoint-initdb.d/03-cities.sql
+      - ./initdb/04-districts.sql:/docker-entrypoint-initdb.d/04-districts.sql
+      - ./initdb/05-address_searchs.sql:/docker-entrypoint-initdb.d/05-address_searchs.sql
+
+volumes:
+  mariadb_data:

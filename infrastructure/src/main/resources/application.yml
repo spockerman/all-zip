@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: text/html, text/plain, text/css, text/javascript, application/javascript, application/json
+  undertow:
+    threads:
+      worker: 64
+      io: 4
+
+spring:
+  logging:
+    level: { root: INFO, org.springframework: DEBUG }
+  datasource:
+    url: jdbc:postgresql://${postgres.url}:${postgres.port}/${postgres.schema}
+    username: ${postgres.username}
+    password: ${postgres.password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false
+      connection-timeout: 250
+      max-lifetime: 60000
+      maximum-pool-size: 20
+      minimum-idle: 10
+      pool-name: master
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.generate_statistics: false
+      hibernate.connection.provider_disables_autocommit: true
+  flyway:
+    enabled: true                  # Ativa o Flyway (true por padrão)
+    locations: classpath:db/migration  # Caminho padrão para os scripts
+    baseline-on-migrate: true      # Necessário se o DB já tem dados
+    validate-on-migrate: true      # Valida se scripts foram alterados
+    out-of-order: false            # Rejeita migrações fora de ordem
+    clean-disabled: true           # Impede que "clean" seja executado em produção
