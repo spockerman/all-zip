@@ -6,6 +6,7 @@ import br.com.all.zip.infrastructure.adpter.inbound.rest.dto.StateResponse;
 import br.com.all.zip.infrastructure.adpter.inbound.rest.mapper.StateMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,9 +35,9 @@ public class StateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StateResponse> findById(Integer id){
-        var state = findByIdStateUseCase.execute(id);
-        return ResponseEntity.ok(StateMapper.toResponse(state));
+    public ResponseEntity<StateResponse> findById(@PathVariable("id") Integer id){
+        var response = findByIdStateUseCase.execute(id);
+        return ResponseEntity.ok(StateMapper.toResponse(response));
     }
 
 }
