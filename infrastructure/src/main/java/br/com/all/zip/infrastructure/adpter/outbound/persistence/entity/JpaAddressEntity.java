@@ -9,11 +9,13 @@ public class JpaAddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "city_id")
-    private Integer cityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", nullable = false)
+    private JpaCityEntity city;
 
-    @Column(name = "district_id")
-    private Integer stateId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "district_id", nullable = true)
+    private JpaDistrictEntity district;
 
     @Column(name = "address")
     private String address;
@@ -36,18 +38,23 @@ public class JpaAddressEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getCityId() {
-        return cityId;
+
+    public JpaCityEntity getCity() {
+        return city;
     }
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
+
+    public void setCity(JpaCityEntity city) {
+        this.city = city;
     }
-    public Integer getStateId() {
-        return stateId;
+
+    public JpaDistrictEntity getDistrict() {
+        return district;
     }
-    public void setStateId(Integer stateId) {
-        this.stateId = stateId;
+
+    public void setDistrict(JpaDistrictEntity district) {
+        this.district = district;
     }
+
     public String getAddress() {
         return address;
     }

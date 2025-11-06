@@ -10,13 +10,11 @@ server:
       io: 4
 
 spring:
-  logging:
-    level: { root: INFO, org.springframework: DEBUG }
   datasource:
-    url: jdbc:postgresql://${postgres.url}:${postgres.port}/${postgres.schema}
-    username: ${postgres.username}
-    password: ${postgres.password}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mariadb://${mariadb.host}:${mariadb.port}/${mariadb.database}
+    username: ${mariadb.username}
+    password: ${mariadb.password}
+    driver-class-name: org.mariadb.jdbc.Driver
     hikari:
       auto-commit: false
       connection-timeout: 250
@@ -24,7 +22,6 @@ spring:
       maximum-pool-size: 20
       minimum-idle: 10
       pool-name: master
-
   jpa:
     open-in-view: false
     show-sql: true
@@ -33,10 +30,11 @@ spring:
     properties:
       hibernate.generate_statistics: false
       hibernate.connection.provider_disables_autocommit: true
+      hibernate.dialect: org.hibernate.dialect.MariaDBDialect
   flyway:
-    enabled: true                  # Ativa o Flyway (true por padrão)
-    locations: classpath:db/migration  # Caminho padrão para os scripts
-    baseline-on-migrate: true      # Necessário se o DB já tem dados
-    validate-on-migrate: true      # Valida se scripts foram alterados
-    out-of-order: false            # Rejeita migrações fora de ordem
-    clean-disabled: true           # Impede que "clean" seja executado em produção
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    out-of-order: false
+    clean-disabled: true

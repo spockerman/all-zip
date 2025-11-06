@@ -1,20 +1,19 @@
 package br.com.all.zip.infrastructure.adpter.outbound.persistence.entity;
-
 import jakarta.persistence.*;
 
-@Table(name = "cities")
+@Table(name = "districts")
 @Entity
-public class JpaCityEntity {
+public class JpaDistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", nullable = false)
+    private JpaCityEntity city;
+
     @Column(name = "name")
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id", nullable = false)
-    private JpaStateEntity state;
 
     @Column(name = "slug")
     private String slug;
@@ -22,21 +21,25 @@ public class JpaCityEntity {
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public JpaCityEntity getCity() {
+        return city;
+    }
+
+    public void setCity(JpaCityEntity city) {
+        this.city = city;
+    }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
-    }
-    public JpaStateEntity getState() {
-        return state;
-    }
-
-    public void setState(JpaStateEntity state) {
-        this.state = state;
     }
 
     public String getSlug() {

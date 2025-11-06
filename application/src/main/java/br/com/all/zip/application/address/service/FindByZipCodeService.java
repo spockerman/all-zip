@@ -4,10 +4,12 @@ import br.com.all.zip.application.address.usecase.FindByZipCodeUseCase;
 import br.com.all.zip.domain.address.Address;
 import br.com.all.zip.domain.address.AddressRepository;
 import br.com.all.zip.domain.exception.AddressNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public record FindByZipCodeService(AddressRepository repository) implements FindByZipCodeUseCase {
     @Override
     public List<Address> execute(String zipCode) {

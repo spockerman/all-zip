@@ -1,9 +1,9 @@
-postgres:
+mariadb:
   username: root
   password: rootpwd
-  schema: zip-code-db
-  url: localhost
-  port: 6000
+  database: zipcode
+  host: localhost
+  port: 3308
 
 server:
   port: 8181

@@ -1,9 +1,9 @@
-postgres:
-  username: ${DATABASE_POSTGRES_USER}
-  password: ${DATABASE_POSTGRES_PASSWORD}
-  schema: zip-code-db
-  url: ${DATABASE_POSTGRES_HOST}
-  port: ${DATABASE_POSTGRES_PORT}
+mariadb:
+  username: ${DATABASE_USER}
+  password: ${DATABASE_PASSWORD}
+  database: ${DATABASE_NAME:zipcode}
+  host: ${DATABASE_HOST}
+  port: ${DATABASE_PORT:3306}
 
 server:
   port: 9191

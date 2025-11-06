@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public record CityRepositoryImpl(JpaCityRepository repository) implements CityRepository {
+public class CityRepositoryImpl implements CityRepository {
+
+    private final JpaCityRepository repository;
+
+    public CityRepositoryImpl(JpaCityRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Optional<City> findById(Integer id) {

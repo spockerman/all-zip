@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public record AddressRepositoryImpl(JpaAddressRepository repository) implements AddressRepository {
+public class AddressRepositoryImpl implements AddressRepository {
+
+    private final JpaAddressRepository repository;
+
+    public AddressRepositoryImpl(JpaAddressRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Optional<Address> findById(Integer id) {
@@ -18,7 +24,7 @@ public record AddressRepositoryImpl(JpaAddressRepository repository) implements 
 
     @Override
     public Optional<Address> findByZipCode(String zipCode) {
-        return repository.findByZipCode(zipCode).map(AddressMapper::toDomain);
+        return repository.findByPostalCode(zipCode).map(AddressMapper::toDomain);
     }
 
     @Override

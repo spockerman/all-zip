@@ -10,8 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public record StateRepositoryImpl(JpaStateRepository repository) implements StateRepository {
+public class StateRepositoryImpl implements StateRepository {
 
+    private final JpaStateRepository repository;
+
+    public StateRepositoryImpl(JpaStateRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<State> findAll() {

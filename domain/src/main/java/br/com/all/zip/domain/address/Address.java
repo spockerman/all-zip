@@ -3,17 +3,17 @@ package br.com.all.zip.domain.address;
 public class Address {
     private final Integer id;
     private final Integer cityId;
-    private final Integer stateId;
+    private final Integer districtId;
     private final String address;
     private final String postalCode;
     private final String latitude;
     private final String longitude;
     private final String ddd;
 
-    public Address(Integer id, Integer cityId, Integer stateId, String address, String postalCode, String latitude, String longitude, String ddd) {
+    public Address(Integer id, Integer cityId, Integer districtId, String address, String postalCode, String latitude, String longitude, String ddd) {
         this.id = id;
         this.cityId = cityId;
-        this.stateId = stateId;
+        this.districtId = districtId;
         this.address = address;
         this.postalCode = postalCode;
         this.latitude = latitude;
@@ -21,21 +21,21 @@ public class Address {
         this.ddd = ddd;
     }
 
-    public static Address newAddress(Integer id, Integer cityId, Integer stateId, String address, String postalCode, String latitude, String longitude, String ddd) {
-        return new Address(null, cityId, stateId, address, postalCode, latitude, longitude, ddd);
+    public static Address newAddress(Integer id, Integer cityId, Integer districtId, String address, String postalCode, String latitude, String longitude, String ddd) {
+        return new Address(null, cityId, districtId, address, postalCode, latitude, longitude, ddd);
     }
 
     public static Address with(
             Integer id,
             Integer cityId,
-            Integer stateId,
+            Integer districtId,
             String address,
             String postalCode,
             String latitude,
             String longitude,
             String ddd
     ){
-        return new Address(id, cityId, stateId, address, postalCode, latitude, longitude, ddd);
+        return new Address(id, cityId, districtId, address, postalCode, latitude, longitude, ddd);
     }
 
     public Integer getId() {
@@ -44,10 +44,9 @@ public class Address {
     public Integer getCityId() {
         return cityId;
     }
-    public Integer getStateId() {
-        return stateId;
+    public Integer getDistrictId() {
+        return districtId;
     }
-
     public String getAddress() {
         return address;
     }
