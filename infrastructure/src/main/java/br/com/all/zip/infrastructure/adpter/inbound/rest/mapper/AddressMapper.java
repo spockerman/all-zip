@@ -12,7 +12,9 @@ public class AddressMapper {
                 address.getLatitude(),
                 address.getLongitude(),
                 address.getCityId(),
-                address.getDistrictId()
+                address.getCityName(),
+                address.getDistrictId(),
+                address.getDistrictName()
         );
     }
 }

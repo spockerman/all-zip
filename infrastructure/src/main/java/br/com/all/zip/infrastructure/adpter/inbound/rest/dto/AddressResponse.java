@@ -7,5 +7,8 @@ public record AddressResponse (
         String latitude,
         String longitude,
         Integer cityId,
-        Integer districtId
+        String cityName,
+        Integer districtId,
+        String districtName
+
 ) {}

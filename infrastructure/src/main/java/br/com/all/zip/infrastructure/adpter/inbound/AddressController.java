@@ -5,10 +5,7 @@ import br.com.all.zip.application.address.usecase.FindByZipCodeUseCase;
 import br.com.all.zip.infrastructure.adpter.inbound.rest.dto.AddressResponse;
 import br.com.all.zip.infrastructure.adpter.inbound.rest.mapper.AddressMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class AddressController {
     }
 
     @GetMapping(params = "address")
-    public ResponseEntity<List<AddressResponse>> findByAddress(@RequestParam String address){
+    public ResponseEntity<List<AddressResponse>> findByAddress(@RequestParam("address") String address){
         var response = findByAddressUseCase.execute(address).stream().map(
                 AddressMapper::toResponse
         ).toList();
@@ -35,7 +32,7 @@ public class AddressController {
     }
 
     @GetMapping(params = "zipCode")
-    public ResponseEntity<List<AddressResponse>> findByZipCode(@RequestParam String zipCode){
+    public ResponseEntity<List<AddressResponse>> findByZipCode(@RequestParam("zipCode") String zipCode){
         var response = findByZipCodeUseCase.execute(zipCode).stream().map(
                 AddressMapper::toResponse
         ).toList();

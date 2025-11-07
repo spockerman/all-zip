@@ -2,6 +2,7 @@ package br.com.all.zip.infrastructure.adpter.outbound.persistence.repository;
 
 import br.com.all.zip.domain.address.Address;
 import br.com.all.zip.domain.address.AddressRepository;
+import br.com.all.zip.infrastructure.adpter.outbound.persistence.entity.JpaAddressEntity;
 import br.com.all.zip.infrastructure.adpter.outbound.persistence.mapper.AddressMapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,8 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public List<Address> findByAddress(String address) {
-        return repository.findByAddress(address).stream().map(AddressMapper::toDomain).toList();
+        List<JpaAddressEntity> resp = repository.findByAddress(address);
+        return resp.stream().map(AddressMapper::toDomain).toList();
     }
 
 

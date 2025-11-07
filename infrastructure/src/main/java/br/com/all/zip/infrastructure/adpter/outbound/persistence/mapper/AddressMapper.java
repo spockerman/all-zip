@@ -8,6 +8,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AddressMapper {
 
@@ -36,13 +38,31 @@ public class AddressMapper {
     }
 
     public static Address toDomain(JpaAddressEntity entity){
-        Integer cityId = (entity.getCity() != null ? entity.getCity().getId() : null);
-        Integer districtId = (entity.getDistrict() != null ? entity.getDistrict().getId() : null);
+        if (entity == null) {
+            return null;
+        }
 
+        Integer cityId = Optional.ofNullable(entity.getCity())
+                .map(JpaCityEntity::getId)
+                .orElse(null);
+
+        String cityName = Optional.ofNullable(entity.getCity())
+                .map(JpaCityEntity::getName)
+                .orElse(null);
+
+        Integer districtId = Optional.ofNullable(entity.getDistrict())
+                .map(JpaDistrictEntity::getId)
+                .orElse(null);
+
+        String districtName = Optional.ofNullable(entity.getDistrict())
+                .map(JpaDistrictEntity::getName)
+                .orElse(null);
         return Address.with(
                 entity.getId(),
                 cityId,
+                cityName,
                 districtId,
+                districtName,
                 entity.getAddress(),
                 entity.getPostalCode(),
                 entity.getLatitude(),

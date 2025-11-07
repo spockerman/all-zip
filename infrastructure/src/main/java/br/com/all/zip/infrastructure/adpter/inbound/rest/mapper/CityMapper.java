@@ -10,6 +10,7 @@ public class CityMapper {
                 city.getId(),
                 city.getName(),
                 city.getStateId(),
+                city.getStateName(),
                 city.getSlug()
         );
     }
