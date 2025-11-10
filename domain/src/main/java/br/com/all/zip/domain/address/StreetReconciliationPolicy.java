@@ -1,6 +1,8 @@
 package br.com.all.zip.domain.address;
 import java.text.Normalizer;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StreetReconciliationPolicy {
     public Decision decide(String localStreet, String externalStreet) {
         String l = normalize(localStreet);

@@ -19,8 +19,13 @@ public class ViaCepAdapter implements ViaCepLookupPort {
 
     @Override
     public ViaCepAddress findCep(String cep) {
+        String sanitized = cep == null ? null : cep.replaceAll("\\D", "");
+        if(sanitized == null || sanitized.length() != 8) {
+            throw new IllegalArgumentException("Invalid zip code" + cep);
+        }
+
         var dto = client.get()
-                .uri("/{cep}/json/", cep)
+                .uri("/{sanitized}/json/", sanitized)
                 .retrieve()
                 .bodyToMono(ViaCepAddressResponse.class)
                 .block(Duration.ofSeconds(3));

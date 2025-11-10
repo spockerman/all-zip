@@ -2,6 +2,7 @@ package br.com.all.zip.infrastructure.adpter.inbound;
 
 import br.com.all.zip.application.address.usecase.FindByAddressUseCase;
 import br.com.all.zip.application.address.usecase.FindByZipCodeUseCase;
+import br.com.all.zip.application.address.usecase.ReconcileStreetByZipCodeUseCase;
 import br.com.all.zip.infrastructure.adpter.inbound.rest.dto.AddressResponse;
 import br.com.all.zip.infrastructure.adpter.inbound.rest.mapper.AddressMapper;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,16 @@ import java.util.List;
 public class AddressController {
     private final FindByAddressUseCase findByAddressUseCase;
     private final FindByZipCodeUseCase findByZipCodeUseCase;
+    private final ReconcileStreetByZipCodeUseCase reconcileStreetByZipCodeUseCase;
 
     public AddressController(
             FindByAddressUseCase findByAddressUseCase,
-            FindByZipCodeUseCase findByZipCodeUseCase
+            FindByZipCodeUseCase findByZipCodeUseCase,
+            ReconcileStreetByZipCodeUseCase reconcileStreetByZipCodeUseCase
     ){
         this.findByAddressUseCase = findByAddressUseCase;
         this.findByZipCodeUseCase = findByZipCodeUseCase;
+        this.reconcileStreetByZipCodeUseCase = reconcileStreetByZipCodeUseCase;
     }
 
     @GetMapping(params = "address")
@@ -36,6 +40,15 @@ public class AddressController {
         var response = findByZipCodeUseCase.execute(zipCode).stream().map(
                 AddressMapper::toResponse
         ).toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(params = "cep")
+    public ResponseEntity<List<AddressResponse>> reconcileStreetByZipCode(@RequestParam("cep") String zipCode){
+        var response = reconcileStreetByZipCodeUseCase.execute(zipCode).stream().map(
+                AddressMapper::toResponse
+        ).toList();
+
         return ResponseEntity.ok(response);
     }
 

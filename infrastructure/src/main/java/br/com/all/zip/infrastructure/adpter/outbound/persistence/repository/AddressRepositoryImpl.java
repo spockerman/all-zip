@@ -13,26 +13,32 @@ import java.util.Optional;
 public class AddressRepositoryImpl implements AddressRepository {
 
     private final JpaAddressRepository repository;
+    private final AddressMapper mapper;
 
-    public AddressRepositoryImpl(JpaAddressRepository repository) {
+    public AddressRepositoryImpl(JpaAddressRepository repository, AddressMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
     public Optional<Address> findById(Integer id) {
-        return repository.findById(id).map(AddressMapper::toDomain);
+        return repository.findById(id).map(mapper::toDomain);
     }
 
     @Override
     public Optional<Address> findByZipCode(String zipCode) {
-        return repository.findByPostalCode(zipCode).map(AddressMapper::toDomain);
+        return repository.findByPostalCode(zipCode).map(mapper::toDomain);
     }
 
     @Override
     public List<Address> findByAddress(String address) {
         List<JpaAddressEntity> resp = repository.findByAddress(address);
-        return resp.stream().map(AddressMapper::toDomain).toList();
+        return resp.stream().map(mapper::toDomain).toList();
     }
 
-
+    @Override
+    public void save(Address address) {
+        JpaAddressEntity entity = mapper.toEntity(address);
+        repository.save(entity);
+    }
 }

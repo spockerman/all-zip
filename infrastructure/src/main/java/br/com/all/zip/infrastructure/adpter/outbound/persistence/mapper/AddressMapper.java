@@ -14,12 +14,15 @@ import java.util.Optional;
 public class AddressMapper {
 
     @PersistenceContext
-    private  EntityManager entityManager;
+    private EntityManager entityManager;
 
-    public  JpaAddressEntity toEntity(Address address){
+    public JpaAddressEntity toEntity(Address address){
+        if(address == null){ return null;}
+
         JpaAddressEntity entity = new JpaAddressEntity();
 
         entity.setId(address.getId());
+
         if(address.getCityId() != null){
             entity.setCity(entityManager.getReference(JpaCityEntity.class, address.getCityId()));
         }else{
@@ -28,6 +31,7 @@ public class AddressMapper {
         if(address.getDistrictId() != null){
             entity.setDistrict(entityManager.getReference(JpaDistrictEntity.class, address.getDistrictId()));
         }
+
         entity.setAddress(address.getAddress());
         entity.setPostalCode(address.getPostalCode());
         entity.setLatitude(address.getLatitude());
@@ -37,7 +41,7 @@ public class AddressMapper {
         return entity;
     }
 
-    public static Address toDomain(JpaAddressEntity entity){
+    public Address toDomain(JpaAddressEntity entity){
         if (entity == null) {
             return null;
         }

@@ -11,11 +11,7 @@ import java.util.List;
 @Service
 public record FindCepViaCepService(ViaCepLookupPort viaCep) implements FindCepViaCepUseCase {
     @Override
-    public List<ViaCepAddress> execute(String cep) {
-        String sanitized = cep == null ? null : cep.replaceAll("\\D", "");
-        if(sanitized == null || sanitized.length() != 8) {
-            throw new IllegalArgumentException("Invalid zip code" + cep);
-        }
-        return viaCep.findCep(sanitized);
+    public ViaCepAddress execute(String cep) {
+        return viaCep.findCep(cep);
     }
 }

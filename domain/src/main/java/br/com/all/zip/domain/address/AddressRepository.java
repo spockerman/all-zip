@@ -7,6 +7,6 @@ public interface AddressRepository {
     Optional<Address> findById(Integer id);
     Optional<Address> findByZipCode(String zipCode);
     List<Address> findByAddress(String address);
-
+    void save(Address address);
 
 }
